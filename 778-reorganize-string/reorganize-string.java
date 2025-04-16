@@ -21,9 +21,9 @@ class Solution {
         maxFreq = Math.min(maxFreq, freq);
 
        }
-       if (maxFreq > (s.length() + 1) /2){
-        return "";
-       }
+    //    if (maxFreq > (s.length() + 1) /2){
+    //     return "";
+    //    }
 
        StringBuilder sb = new StringBuilder();
 
