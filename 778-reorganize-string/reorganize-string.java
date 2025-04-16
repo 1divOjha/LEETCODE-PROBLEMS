@@ -14,16 +14,14 @@ class Solution {
       // at last we check if the given string length and our string is equal , if yes we return our string, otherwise ""
 
       HashMap<Character, Integer> map = new  HashMap<>();
-      int maxFreq= 0;
+     
        for(char ch : s.toCharArray()){
         int freq = map.getOrDefault(ch, 0)+1;
         map.put(ch, freq);
-        maxFreq = Math.min(maxFreq, freq);
+       
 
        }
-    //    if (maxFreq > (s.length() + 1) /2){
-    //     return "";
-    //    }
+   
 
        StringBuilder sb = new StringBuilder();
 
@@ -32,6 +30,8 @@ class Solution {
 
        Map.Entry<Character, Integer> prev = null;
 
+
+        //because the previously polled element is in prev, at the time next poll happens, so there are no adjacent 
        while(!maxheap.isEmpty()){
         Map.Entry<Character, Integer> curr= maxheap.poll();
         sb.append(curr.getKey());
