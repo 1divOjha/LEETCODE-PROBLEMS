@@ -29,17 +29,21 @@ class Solution {
                 intervals[res][1]=intervals[i][1];
             }
         }
-            int[][] ans = new int[res+1][2];
-            for(int i=0; i<=res; i++){
-                ans[i][0]= intervals[i][0];
-                ans[i][1]= intervals[i][1];
-            }
+            // int[][] ans = new int[res+1][2];
+            // for(int i=0; i<=res; i++){
+            //     ans[i][0]= intervals[i][0];
+            //     ans[i][1]= intervals[i][1];
+            // }
 
+            List<int[]> ans = new ArrayList<>();
+            for(int i=0; i<=res; i++){
+                ans.add(intervals[i]);
+            }
         // now we need to return an array of the non-overlapping intervals 
         
     
 
-     return ans;
+     return ans.toArray(new int[ans.size()][]);
 
     }
 }
