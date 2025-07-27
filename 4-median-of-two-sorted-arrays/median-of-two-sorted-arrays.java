@@ -1,13 +1,17 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+int m = nums1.length; // we made sure, m has the size of larger array
+        int n = nums2.length; // smaller array
+        //O(log(min(m,n))) -tc , sc=O(1);
+    
         // we will be looping 2 pointers, low and high ,till the smaller array, so we make sure that we fix it
-        //check if nums2 is larger then call this method again, with interchanged arguments.
-        if(nums2.length < nums1.length){
+        //check if nums2 is smaller then call this method again, with interchanged arguments.
+        if(n < m){
             return findMedianSortedArrays(nums2,nums1);
         }
         
-        int m = nums1.length; // we made sure, m has the size of larger array
-        int n = nums2.length; // smaller array
+        
 
         // ✅ Edge case: if smaller array is empty
         if (n == 0) {
@@ -22,7 +26,7 @@ class Solution {
 
         int low=0; int high=m; // imp thing remember high =m, its nt zero based indexing, its position of partition
         while(low<=high){
-        int i = (low+high)/2; //partition logic of larger array- nums1
+        int i = (low+high)/2; //partition logic of smaller array- nums1
         int j = (m+n+1)/2 -i ;//partition logic of nums2 =>depends on i (partition logic of nums1),  
         
         //now set max left1,2  & rightmin1,2.  nums1 around i(partition) nums2 around(j-> partition)
@@ -37,7 +41,9 @@ class Solution {
         //valid partition check by this if statement
         // entered this statement means, atleast once the while loop iterated and max, min values are set, now
         if(maxleft1 <= minright2 && maxleft2 <= minright1){
-
+            
+            //✅ This means all elements in the left partitions (from both arrays) are ≤ all elements in the right partitions.
+            //So the merged array is conceptually split perfectly.
             if((m+n)%2 ==0){
                 return ((double)Math.max(maxleft1,maxleft2) + Math.min(minright1,minright2))/2;
             }
