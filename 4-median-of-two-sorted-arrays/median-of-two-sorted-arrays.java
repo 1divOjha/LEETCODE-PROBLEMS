@@ -1,17 +1,10 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
-int m = nums1.length; // we made sure, m has the size of larger array
-        int n = nums2.length; // smaller array
+
         //O(log(min(m,n))) -tc , sc=O(1);
-    
-        // we will be looping 2 pointers, low and high ,till the smaller array, so we make sure that we fix it
-        //check if nums2 is smaller then call this method again, with interchanged arguments.
-        if(n < m){
-            return findMedianSortedArrays(nums2,nums1);
-        }
-        
-        
+        int m = nums1.length; // we made sure, m has the size of smaller array
+        int n = nums2.length; // smaller array
 
         // ✅ Edge case: if smaller array is empty
         if (n == 0) {
@@ -23,6 +16,14 @@ int m = nums1.length; // we made sure, m has the size of larger array
                 return nums1[m / 2];
             }
         }
+    
+        // we will be looping 2 pointers, low and high ,till the smaller array, so we make sure that we fix it
+        //check if nums2 is smaller then call this method again, with interchanged arguments.
+        if(n < m){
+            return findMedianSortedArrays(nums2,nums1);
+        }
+        
+        
 
         int low=0; int high=m; // imp thing remember high =m, its nt zero based indexing, its position of partition
         while(low<=high){
