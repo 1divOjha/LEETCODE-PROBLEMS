@@ -2,23 +2,23 @@ class Solution {
     public int missingNumber(int[] nums) {
 
         // app 1- using expected sum
-        // int n = nums.length;
-        // int sum = n * (n+1)/2;
-        // int temp=0;
-        // for(int i =0; i<n; i++){
-        //     temp+=nums[i];
-        // }
-        // return sum-temp;
+        int n = nums.length;
+        int sum = n * (n+1)/2;
+        int temp=0;
+        for(int i =0; i<n; i++){
+            temp+=nums[i];
+        }
+        return sum-temp;
 
 
         //app2 - using xor or bitwise or ^
-        int n = nums.length;
-        int xor = n; // n^n =0;
-        for(int i =0; i< n ; i++){
-            xor ^= i^nums[i];
-        } 
+        // int n = nums.length;
+        // int xor = n; // n^n =0;
+        // for(int i =0; i< n ; i++){
+        //     xor ^= i^nums[i];
+        // } 
 
-        return xor;
+        // return xor;
 
 
 
