@@ -1,17 +1,36 @@
 class Solution {
     public String reverseWords(String s) {
- String[] words= s.trim().split("\\s+");
- //bs now reverse the words position wise , and we have the ans, after joing them into a string
- int left=0; int right = words.length -1;
- while(left<right){
-    String temp = words[left];
-    words[left]=words[right];
-    words[right]=temp;
-    left++;
-    right--;
- }
 
-return String.join(" ",words);
+//using stack now
+
+Stack<String>stack = new Stack<>();
+String[]words= s.trim().split("\\s+");
+StringBuilder sb= new StringBuilder();
+for(String word: words){
+    stack.push(word);
+}
+while(!stack.isEmpty()){
+    String temp = stack.pop();
+    sb.append(temp);
+  if(!stack.isEmpty()){
+    sb.append(" ");
+  }
+}
+
+return sb.toString();
+//accepted solution *******************************************************************************************
+//  String[] words= s.trim().split("\\s+");
+//  //bs now reverse the words position wise , and we have the ans, after joing them into a string
+//  int left=0; int right = words.length -1;
+//  while(left<right){
+//     String temp = words[left];
+//     words[left]=words[right];
+//     words[right]=temp;
+//     left++;
+//     right--;
+//  }
+
+// return String.join(" ",words);
     
  
 
