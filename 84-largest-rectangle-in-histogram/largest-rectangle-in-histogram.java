@@ -31,45 +31,83 @@ class Solution {
         // return maxarea;
 
 //*********************************************************************************************************************************************** */
-        // BETTER SOLUTION 0(n) - 3 passes almost 
+        // BETTER SOLUTION 0(n) - 3 passes almost - passed cases - submitted 
         //************  preprocessing********** - the prev smaller indeex, and next small index- in 2 separate arrays
-        int n = heights.length;
-        int [] leftsmall= new int[n];
-        int [] rightsmall = new int[n];
-        Deque<Integer> s= new ArrayDeque<>();
+//         int n = heights.length;
+//         int [] leftsmall= new int[n];
+//         int [] rightsmall = new int[n];
+//         Deque<Integer> s= new ArrayDeque<>();
 
 
-        for(int i =0; i<n; i++){
-            while(! s.isEmpty() && heights[s.peek()] >= heights[i]){
-                s.pop();
-            }
-            //reached prev ele at top of stack where ele is smaller than i index  , so leftsmall[i]=s.peek();
-            //or stack empty -  means no prev smaller ele, so leftsmall[i]=-1 ;
+//         for(int i =0; i<n; i++){
+//             while(! s.isEmpty() && heights[s.peek()] >= heights[i]){
+//                 s.pop();
+//             }
+//             //reached prev ele at top of stack where ele is smaller than i index  , so leftsmall[i]=s.peek();
+//             //or stack empty -  means no prev smaller ele, so leftsmall[i]=-1 ;
 
-            leftsmall[i]= s.isEmpty()? -1: s.peek();
-            // relevant stack top utilised, now we can push current ele index
-            s.push(i);
-        }
+//             leftsmall[i]= s.isEmpty()? -1: s.peek();
+//             // relevant stack top utilised, now we can push current ele index
+//             s.push(i);
+//         }
 
-        s.clear();
+//         s.clear();
 
-        for(int i =n-1; i>=0; i--){
-            while(! s.isEmpty() && heights[s.peek()] >= heights[i]){
-                s.pop();
-            }
-            rightsmall[i]= s.isEmpty()? n: s.peek();
-            s.push(i);
-        }
+//         for(int i =n-1; i>=0; i--){
+//             while(! s.isEmpty() && heights[s.peek()] >= heights[i]){
+//                 s.pop();
+//             }
+//             rightsmall[i]= s.isEmpty()? n: s.peek();
+//             s.push(i);
+//         }
 
-        int ans =0;
+//         int ans =0;
 
-        for(int i =0; i<n ; i++){
-            int height = heights[i]; // since we assume current is smallest height bar
-            int width= rightsmall[i] -leftsmall[i]-1;
-            int area = width* height;
-            ans = Math.max(ans, area);
-        }
+//         for(int i =0; i<n ; i++){
+//             int height = heights[i]; // since we assume current is smallest height bar
+//             int width= rightsmall[i] -leftsmall[i]-1;
+//             int area = width* height;
+//             ans = Math.max(ans, area);
+//         }
 
+// return ans;
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//efficient solution - stock span derived - 1 pass , and small minor pass, no extra arrays; 
+
+int n = heights.length;
+int ans =0;
+Deque <Integer> s= new ArrayDeque<>();
+
+
+for(int i = 0; i<n ; i++){
+    //when we pop we will finalise them here only
+    while( ! s.isEmpty() && heights[s.peek()] >= heights[i]){
+        //their right limit is i;
+        int popped = s.pop();
+        int thisheight = heights[popped];
+        int leftlimit = s.isEmpty() ? -1 : s.peek();
+
+        int width = i -leftlimit-1;
+        int area = width* thisheight;
+        ans = Math.max(ans, area);
+    }
+    // when stack empty i.e first ele / or all big ele to left no small left to i, so just push it
+    s.push(i);
+}
+
+int rightlimit= n;
+while(!s.isEmpty()){
+int popped = s.pop();
+int thisheight= heights[popped];
+//left limit is -1, if stack empty, other wise the top of stack after popping
+int leftlimit = s.isEmpty() ? -1 : s.peek(); 
+int width= rightlimit - leftlimit -1;
+int area = width * thisheight;
+ans = Math.max(ans, area);
+
+}
 return ans;
 
     }
